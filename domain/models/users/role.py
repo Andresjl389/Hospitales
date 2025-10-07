@@ -9,4 +9,4 @@ class Role(Base):
     id = Column(Uuid, primary_key=True, index=True, nullable=False, default=uuid.uuid4, unique=True)
     name = Column(String, index=True, nullable=False)
     
-    user = relationship("User", back_populates="role")
+    users = relationship("User", back_populates="role")

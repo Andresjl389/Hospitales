@@ -22,6 +22,8 @@ from domain.models.evaluations.questionnaire import Questionnaire
 from domain.models.evaluations.question import Question
 from domain.models.evaluations.option import Option
 from domain.models.evaluations.question_type import QuestionType
+from domain.models.users.refresh_token import RefreshToken
+from domain.models.users.area import Area
 
 
 from core.config import settings

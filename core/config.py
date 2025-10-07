@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     DB_PORT: str
     DB_ENGINE: str
     DB_NAME: str
+    JWT_SECRET: str
 
     @property
     def DATABASE_URL(self) -> str:

@@ -1,5 +1,5 @@
 import uuid
-from sqlalchemy import Column, ForeignKey, Integer, String, Uuid
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, String, Uuid
 from sqlalchemy.orm import relationship
 from core.config import Base
 
@@ -12,7 +12,7 @@ class Training(Base):
     duration_minutes = Column(Integer, nullable=False)
     url_video = Column(String, nullable=False)
     url_image = Column(String, nullable=True)
-    created_at = Column(String, nullable=False)
+    created_at = Column(DateTime, nullable=False)
     user_id = Column(Uuid, ForeignKey("users.id"), nullable=False)
     
     user = relationship("User", back_populates="trainings")
