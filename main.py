@@ -1,5 +1,5 @@
 import os
-from fastapi import FastAPI
+from fastapi import FastAPI, Path
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from interfaces.routes.users.auth_interface import auth_router
@@ -31,6 +31,8 @@ origins = [
 
 app = FastAPI()
 
+media_dir = Path("media")
+media_dir.mkdir(parents=True, exist_ok=True)
 app.mount("/media", StaticFiles(directory="media"), name="media")
 
 app.add_middleware(
