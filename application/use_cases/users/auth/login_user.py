@@ -26,8 +26,8 @@ class LoginUser:
             key="access_token",
             value=access_token,
             httponly=True,
-            secure=False,  # cambia a True si usas HTTPS
-            samesite="lax",
+            secure=True,
+            samesite="none",
             max_age=ACCESS_TOKEN_EXPIRE_MINUTES * 60,
         )
 
@@ -36,8 +36,8 @@ class LoginUser:
             key="refresh_token",
             value=refresh_value,
             httponly=True,
-            secure=False,       # ponlo en True cuando tengas HTTPS
-            samesite="strict",
+            secure=True,
+            samesite="none",
             max_age=REFRESH_TOKEN_EXPIRE_DAYS * 24 * 60 * 60,
         )
 

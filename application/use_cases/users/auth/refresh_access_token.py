@@ -34,8 +34,8 @@ class RefreshAccessToken:
             key="access_token",
             value=new_access_token,
             httponly=True,
-            secure=False,  # True en producción con HTTPS
-            samesite="lax",
+            secure=True,
+            samesite="none",
             max_age=ACCESS_TOKEN_EXPIRE_MINUTES * 60,
         )
 
