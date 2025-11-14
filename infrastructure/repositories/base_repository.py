@@ -24,6 +24,7 @@ class BaseRepository(Generic[T]):
     def update(self, entity: T) -> T:
         self.db.merge(entity)
         self.db.commit()
+        self.db.refresh(entity)
         return entity
 
     def delete(self, entity_id: UUID) -> bool:

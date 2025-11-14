@@ -6,7 +6,7 @@ from application.use_cases.users.auth.login_user import LoginUser
 from application.use_cases.users.auth.logout_user import LogoutUser
 from application.use_cases.users.auth.refresh_access_token import RefreshAccessToken
 from core.config import get_db
-from interfaces.dependencies.users.user_dependencies import get_current_user
+from core.security import get_current_user
 from domain.models.users.user import User
 from infrastructure.repositories.users.user_repository import UserRepository
 
@@ -29,7 +29,7 @@ def refresh_token(
 ):
     repo = UserRepository(db)
     use_case = RefreshAccessToken(repo)
-    return use_case.execute(refresh_token)
+    return use_case.execute(refresh_token, response)
 
 @auth_router.post("/logout")
 def logout_user(response: Response, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):

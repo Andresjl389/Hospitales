@@ -10,11 +10,11 @@ from application.use_cases.trainings.training.get_list_training import GetListTr
 from application.use_cases.trainings.training.get_training import GetTraining
 from application.use_cases.trainings.training.update_training import UpdateTraining
 from core.config import get_db
-from core.security import require_role
+from core.security import get_current_user, require_role
 from domain.models.users.user import User
 from infrastructure.repositories.trainings.training_repository import TrainingRepository
 from infrastructure.storage.filesystem_storage import FileSystemStorageAdapter
-from interfaces.dependencies.users.user_dependencies import get_current_user
+
 
 
 training_router = APIRouter(

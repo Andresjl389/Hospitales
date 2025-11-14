@@ -9,6 +9,6 @@ class SatisfactionSurvey(Base):
     id = Column(Uuid, primary_key=True, index=True, nullable=False, default=uuid.uuid4, unique=True)
     rating = Column(Integer, nullable=False)
     comments = Column(String, nullable=True)
-    user_id = Column(Uuid, ForeignKey("users.id"), nullable=False)
+    user_id = Column(Uuid, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
 
     user = relationship("User", back_populates="satisfaction_surveys")

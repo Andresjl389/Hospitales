@@ -13,8 +13,10 @@ class Training(Base):
     url_video = Column(String, nullable=False)
     url_image = Column(String, nullable=True)
     created_at = Column(DateTime, nullable=False)
-    user_id = Column(Uuid, ForeignKey("users.id"), nullable=False)
+    user_id = Column(Uuid, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     
     user = relationship("User", back_populates="trainings")
-    assignments = relationship("Assignment", back_populates="trainings")
-    questionnaires = relationship("Questionnaire", back_populates="trainings")
+    assignments = relationship("Assignment", back_populates="trainings", cascade="all, delete-orphan")
+    questionnaires = relationship("Questionnaire", back_populates="trainings", cascade="all, delete-orphan")
+    user_trainings = relationship("UserTraining", back_populates="trainings", cascade="all, delete-orphan")
+    

@@ -1,4 +1,5 @@
 
+from uuid import UUID
 from sqlalchemy.orm import Session
 
 from domain.models.users.refresh_token import RefreshToken
@@ -28,3 +29,6 @@ class UserRepository(BaseRepository[User]):
     
     def get_by_cedula(self, cedula: str):
         return self.db.query(User).filter(User.cedula == cedula).first()
+    
+    def get_by_area(self, id_area: UUID) -> list[User]:
+        return self.db.query(User).filter(User.area_id == id_area).all()

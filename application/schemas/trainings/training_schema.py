@@ -3,6 +3,8 @@ from uuid import UUID
 from datetime import datetime
 from typing import Optional
 
+from application.schemas.users.user_schema import UserShortInfo
+
 class TrainingBase(BaseModel):
     title: str
     description: Optional[str] = None
@@ -21,7 +23,7 @@ class TrainingResponse(BaseModel):
     url_image: Optional[str] = None
     duration_minutes: Optional[int] = None
     created_at: datetime
-    user_id: UUID
+    user: UserShortInfo
 
     class Config:
         from_attributes = True

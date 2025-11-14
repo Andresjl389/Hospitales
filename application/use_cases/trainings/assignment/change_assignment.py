@@ -28,7 +28,7 @@ class UpdateAssignment:
         if update_data.completed_date is not None:
             assignment.completed_date = update_data.completed_date
             
-        for key, value in update_data.dict(exclude_unset=True).items():
+        for key, value in update_data.model_dump(exclude_unset=True).items():
             setattr(assignment, key, value)
             
         self.repository.update(assignment)

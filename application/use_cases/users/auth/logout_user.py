@@ -18,5 +18,11 @@ class LogoutUser:
             secure=False,   # cámbialo a True en producción con HTTPS
             samesite="strict"   
         )
+        response.delete_cookie(
+            key="access_token",
+            httponly=True,
+            secure=False,   # cámbialo a True en producción con HTTPS
+            samesite="strict"   
+        )
 
         return {"msg": "Sesión cerrada exitosamente"}

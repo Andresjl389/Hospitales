@@ -1,5 +1,5 @@
-from datetime import datetime
-from fastapi import HTTPException, Response, Cookie
+from datetime import datetime, timezone
+from fastapi import HTTPException, Response
 from application.ports.users.user_port import IUserRepository
 from core.security import create_access_token, hash_token, ACCESS_TOKEN_EXPIRE_MINUTES
 
@@ -7,7 +7,11 @@ class RefreshAccessToken:
     def __init__(self, repo: IUserRepository):
         self.repo = repo
 
-    def execute(self, refresh_token_value: str) -> dict:
+    def execute(self, refresh_token_value: str, response: Response) -> dict:
+        """
+        Genera un nuevo access_token usando el refresh_token de la cookie.
+        Establece el nuevo access_token como cookie HttpOnly.
+        """
         if not refresh_token_value:
             raise HTTPException(status_code=401, detail="No refresh token provided")
 
@@ -16,11 +20,26 @@ class RefreshAccessToken:
 
         if not token_entity:
             raise HTTPException(status_code=401, detail="Invalid refresh token")
-        if token_entity.expires_at < datetime.utcnow():
+        
+        # 🔥 Usar timezone.utc en vez de datetime.utcnow() para consistencia
+        
+        if token_entity.expires_at.replace(tzinfo=None) < datetime.utcnow():
             raise HTTPException(status_code=401, detail="Refresh token expired")
 
         # Generar nuevo access token
         new_access_token = create_access_token(token_entity.user_id)
+
+        # 🔥 Establecer la cookie con el nuevo access_token
+        response.set_cookie(
+            key="access_token",
+            value=new_access_token,
+            httponly=True,
+            secure=False,  # True en producción con HTTPS
+            samesite="lax",
+            max_age=ACCESS_TOKEN_EXPIRE_MINUTES * 60,
+        )
+
+        print(f"✅ Token refrescado para user_id: {token_entity.user_id}")
 
         return {
             "access_token": new_access_token,

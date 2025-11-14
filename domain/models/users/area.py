@@ -9,5 +9,5 @@ class Area(Base):
     id = Column(Uuid, primary_key=True, index=True, nullable=False, default=uuid.uuid4, unique=True)
     name = Column(String, index=True, nullable=False)
     
-    users = relationship("User", back_populates="area")
-    assignments = relationship("Assignment", back_populates="area")
+    users = relationship("User", back_populates="area", cascade="all, delete-orphan")
+    assignments = relationship("Assignment", back_populates="area", cascade="all, delete-orphan")
