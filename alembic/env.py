@@ -24,6 +24,7 @@ from domain.models.evaluations.option import Option
 from domain.models.evaluations.question_type import QuestionType
 from domain.models.users.refresh_token import RefreshToken
 from domain.models.users.area import Area
+from domain.models.trainings.user_training import UserTraining
 
 
 from core.config import settings

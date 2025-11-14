@@ -10,7 +10,7 @@ class RefreshToken(Base):
 
     id = Column(Uuid, primary_key=True, index=True, nullable=False, default=uuid.uuid4, unique=True)
     token_hash = Column(String, index=True, nullable=False)   # sha256 hex
-    user_id = Column(Uuid, ForeignKey("users.id"), nullable=False)
+    user_id = Column(Uuid, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     revoked = Column(Boolean, default=False, nullable=False)
     created_at = Column(DateTime, nullable=False, default=datetime.now(timezone.utc))
     expires_at = Column(DateTime, nullable=False)

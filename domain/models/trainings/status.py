@@ -10,3 +10,4 @@ class Status(Base):
     name = Column(String, index=True, nullable=False)
     
     assignments = relationship("Assignment", back_populates="status")
+    user_trainings = relationship("UserTraining", back_populates="status")

@@ -9,5 +9,5 @@ class QuestionType(Base):
     id = Column(Uuid, primary_key=True, index=True, nullable=False, default=uuid.uuid4, unique=True)
     name = Column(String, nullable=False)
     
-    questions = relationship("Question", back_populates="question_types")
+    questions = relationship("Question", back_populates="question_types", cascade="all, delete-orphan")
 

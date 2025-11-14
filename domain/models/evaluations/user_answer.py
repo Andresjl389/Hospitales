@@ -8,9 +8,9 @@ class UserAnswer(Base):
 
     id = Column(Uuid, primary_key=True, index=True, nullable=False, default=uuid.uuid4, unique=True)
     answer_date = Column(Date, nullable=False)
-    user_id = Column(Uuid, ForeignKey("users.id"), nullable=False)
-    question_id = Column(Uuid, ForeignKey("questions.id"), nullable=False)
-    option_id = Column(Uuid, ForeignKey("options.id"), nullable=True)
+    user_id = Column(Uuid, ForeignKey("users.id", ondelete='CASCADE'), nullable=False)
+    question_id = Column(Uuid, ForeignKey("questions.id", ondelete='CASCADE'), nullable=False)
+    option_id = Column(Uuid, ForeignKey("options.id", ondelete='CASCADE'), nullable=True)
     
     user = relationship("User", back_populates="user_answers")
     questions = relationship("Question", back_populates="user_answers")

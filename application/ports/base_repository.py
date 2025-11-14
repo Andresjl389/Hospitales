@@ -19,3 +19,7 @@ class IBaseRepository(ABC, Generic[T]):
     
     @abstractmethod
     def delete(self, entity_id: UUID) -> bool: ...
+    
+    @abstractmethod
+    def create_without_commit(self, entity: T) -> T: ...
+    

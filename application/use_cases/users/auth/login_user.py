@@ -23,6 +23,16 @@ class LoginUser:
         refresh_hash = hash_token(refresh_value)
 
         response.set_cookie(
+            key="access_token",
+            value=access_token,
+            httponly=True,
+            secure=False,  # cambia a True si usas HTTPS
+            samesite="lax",
+            max_age=ACCESS_TOKEN_EXPIRE_MINUTES * 60,
+        )
+
+
+        response.set_cookie(
             key="refresh_token",
             value=refresh_value,
             httponly=True,

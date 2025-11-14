@@ -9,13 +9,12 @@ from application.use_cases.users.user.get_user import GetUser
 from application.use_cases.users.user.update_password import UpdateUserPassword
 from application.use_cases.users.user.update_user import UpdateUser
 from core.config import get_db
-from core.security import require_role
+from core.security import require_role, get_current_user
 from domain.models.users.user import User
 from infrastructure.repositories.users.area_repository import AreaRepository
 from infrastructure.repositories.users.refresh_token_repository import RefreshTokenRepository
 from infrastructure.repositories.users.role_repository import RoleRepository
 from infrastructure.repositories.users.user_repository import UserRepository
-from interfaces.dependencies.users.user_dependencies import get_current_user
 
 
 user_router = APIRouter(

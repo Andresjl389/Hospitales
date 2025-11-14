@@ -1,3 +1,4 @@
+from uuid import UUID
 from application.ports.base_repository import IBaseRepository
 from domain.models.users.refresh_token import RefreshToken
 from domain.models.users.user import User
@@ -13,3 +14,5 @@ class IUserRepository(IBaseRepository[User]):
     def get_refresh_token(self, token_hash: str) -> RefreshToken: ...
     
     def get_by_cedula(self, cedula: str) -> Optional[User]: ...
+    
+    def get_by_area(self, id_area: UUID) -> list[User]: ...

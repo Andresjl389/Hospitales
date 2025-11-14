@@ -16,6 +16,7 @@ from domain.models.evaluations.option import Option
 from domain.models.evaluations.question_type import QuestionType
 from domain.models.users.refresh_token import RefreshToken
 from domain.models.users.area import Area
+from domain.models.trainings.user_training import UserTraining
 
 class User(Base):
     __tablename__ = "users"
@@ -27,13 +28,15 @@ class User(Base):
     email = Column(String, unique=True, index=True, nullable=False)
     password = Column(String, nullable=False)
     registered_at = Column(Date, nullable=False)
-    role_id = Column(Uuid, ForeignKey("roles.id"))
-    area_id = Column(Uuid, ForeignKey("areas.id"))
+    role_id = Column(Uuid, ForeignKey("roles.id", ondelete="CASCADE"))
+    area_id = Column(Uuid, ForeignKey("areas.id", ondelete="CASCADE"))
     
     role = relationship("Role", back_populates="users")
     area = relationship("Area", back_populates="users")
-    satisfaction_surveys = relationship("SatisfactionSurvey", back_populates="user")
-    trainings = relationship("Training", back_populates="user")
-    user_answers = relationship("UserAnswer", back_populates="user")
-    results = relationship("Result", back_populates="user")
-    refresh_tokens = relationship("RefreshToken", back_populates="user")
+    satisfaction_surveys = relationship("SatisfactionSurvey", back_populates="user", cascade="all, delete-orphan")
+    trainings = relationship("Training", back_populates="user", cascade="all, delete-orphan")
+    user_answers = relationship("UserAnswer", back_populates="user", cascade="all, delete-orphan")
+    results = relationship("Result", back_populates="user", cascade="all, delete-orphan")
+    refresh_tokens = relationship("RefreshToken", back_populates="user", cascade="all, delete-orphan")
+    user_trainings = relationship("UserTraining", back_populates="user", cascade="all, delete-orphan")
+    

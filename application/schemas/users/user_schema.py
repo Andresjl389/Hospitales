@@ -18,13 +18,16 @@ class UserUpdate(BaseModel):
     last_name: Optional[str] = None
     cedula: Optional[str] = None
     email: Optional[EmailStr] = None
-    password: Optional[str] = None
     role_id: Optional[UUID4] = None
     area_id: Optional[UUID4] = None
 
 class UserLogin(BaseModel):
     email: EmailStr
     password: str
+    
+class UserShortInfo(BaseModel):
+    first_name: str
+    last_name: str
     
 class UserSchema(BaseModel):
     id: UUID4

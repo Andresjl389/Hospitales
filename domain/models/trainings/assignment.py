@@ -10,10 +10,12 @@ class Assignment(Base):
     id = Column(Uuid, primary_key=True, index=True, nullable=False, default=uuid.uuid4, unique=True)
     assignment_date = Column(Date, nullable=False, default=datetime.now(timezone.utc))
     completed_date = Column(Date, nullable=True)
-    id_area = Column(Uuid, ForeignKey("areas.id"), nullable=False)
+    id_area = Column(Uuid, ForeignKey("areas.id", ondelete='CASCADE'), nullable=False)
     id_status = Column(Uuid, ForeignKey("statuses.id"), nullable=False)
-    training_id = Column(Uuid, ForeignKey("trainings.id"), nullable=False)
+    training_id = Column(Uuid, ForeignKey("trainings.id", ondelete='CASCADE'), nullable=False)
 
     area = relationship("Area", back_populates="assignments")
     status = relationship("Status", back_populates="assignments")
     trainings = relationship("Training", back_populates="assignments")
+    user_trainings = relationship("UserTraining", back_populates="assignments", cascade="all, delete-orphan")
+    
