@@ -1,5 +1,6 @@
 import os
-from fastapi import FastAPI, Path
+from fastapi import FastAPI
+from pathlib import Path
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from interfaces.routes.users.auth_interface import auth_router
