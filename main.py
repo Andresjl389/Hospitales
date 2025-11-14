@@ -26,8 +26,12 @@ routes = [
     result_router
 ]
 
+# Allow a comma-separated list via env var to support staging/production frontends.
+default_origins = "http://localhost:3000"
 origins = [
-    'http://localhost:3000'
+    origin.strip()
+    for origin in os.getenv("ALLOWED_ORIGINS", default_origins).split(",")
+    if origin.strip()
 ]
 
 app = FastAPI()
