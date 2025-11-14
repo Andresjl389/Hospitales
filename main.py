@@ -34,7 +34,7 @@ app.mount("/media", StaticFiles(directory="media"), name="media")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=['*'],
+    allow_origins=['https://hospitales-frontend.vercel.app'],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
