@@ -26,14 +26,6 @@ routes = [
     result_router
 ]
 
-# Allow a comma-separated list via env var to support staging/production frontends.
-default_origins = "http://localhost:3000"
-origins = [
-    origin.strip()
-    for origin in os.getenv("ALLOWED_ORIGINS", default_origins).split(",")
-    if origin.strip()
-]
-
 app = FastAPI()
 
 media_dir = Path("media")
@@ -42,7 +34,7 @@ app.mount("/media", StaticFiles(directory="media"), name="media")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=['*'],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
