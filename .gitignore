@@ -205,3 +205,32 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+
+# media files
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.mp4
+*.mp3
+*.wav
+*.avi
+*.mov
+*.mkv
+*.flv
+*.svg
+*.ico
+*.webp
+
+# folder for uploaded files/
+media/
+images/
+videos/
+uploads/
+staticfiles/
+static/
+static_root/
+
+
+.DS_Store
