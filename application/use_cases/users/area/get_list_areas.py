@@ -1,4 +1,3 @@
-from fastapi import HTTPException
 from application.ports.users.area_port import IAreaRepository
 from domain.models.users.area import Area
 
@@ -8,6 +7,6 @@ class ListAreas:
 
     def execute(self) -> list[Area]:
         areas = self.repo.get_all()
-        if not areas:
-            raise HTTPException(status_code=404, detail="No areas found")
-        return areas
+        # Return an empty list when there are no areas so clients can handle
+        # the "no data" state without errors.
+        return areas or []

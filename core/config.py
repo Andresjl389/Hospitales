@@ -12,6 +12,9 @@ class Settings(BaseSettings):
     DB_ENGINE: str
     DB_NAME: str
     JWT_SECRET: str
+    COOKIE_SECURE: bool = True
+    COOKIE_SAMESITE: str = "none"
+    COOKIE_DOMAIN: str | None = None
 
     @property
     def DATABASE_URL(self) -> str:

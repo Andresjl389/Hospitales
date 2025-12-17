@@ -2,6 +2,7 @@ from datetime import datetime, timezone
 from fastapi import HTTPException, Response
 from application.ports.users.user_port import IUserRepository
 from core.security import create_access_token, hash_token, ACCESS_TOKEN_EXPIRE_MINUTES
+from core.config import settings
 
 class RefreshAccessToken:
     def __init__(self, repo: IUserRepository):
@@ -30,12 +31,17 @@ class RefreshAccessToken:
         new_access_token = create_access_token(token_entity.user_id)
 
         # 🔥 Establecer la cookie con el nuevo access_token
+        cookie_opts = {
+            "httponly": True,
+            "secure": settings.COOKIE_SECURE,
+            "samesite": settings.COOKIE_SAMESITE,
+            "domain": settings.COOKIE_DOMAIN
+        }
+
         response.set_cookie(
             key="access_token",
             value=new_access_token,
-            httponly=True,
-            secure=True,
-            samesite="none",
+            **cookie_opts,
             max_age=ACCESS_TOKEN_EXPIRE_MINUTES * 60,
         )
 

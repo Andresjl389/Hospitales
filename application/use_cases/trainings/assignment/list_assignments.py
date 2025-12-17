@@ -1,4 +1,3 @@
-from fastapi import HTTPException
 from application.ports.trainings.assignment_port import IAssignmentRepository
 from domain.models.trainings.assignment import Assignment
 
@@ -9,6 +8,6 @@ class ListAssignments:
         
     def execute(self) -> Assignment:
         assignment = self.repository.get_all()
-        if not assignment:
-            raise HTTPException(status_code=404, detail="No assignments found")
-        return assignment
+        # When there are no assignments (e.g., fresh database) return an empty list
+        # so consumers can render zero counts without failing the request.
+        return assignment or []

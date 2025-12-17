@@ -5,6 +5,7 @@ from application.schemas.users.user_schema import UserLogin
 from core.security import ACCESS_TOKEN_EXPIRE_MINUTES, REFRESH_TOKEN_EXPIRE_DAYS, check_password_hash, create_access_token, generate_refresh_token_value, hash_token
 from domain.models.users.refresh_token import RefreshToken
 from domain.models.users.user import User
+from core.config import settings
 
 class LoginUser:
     def __init__(self, repo: IUserRepository):
@@ -22,12 +23,17 @@ class LoginUser:
         refresh_value = generate_refresh_token_value()
         refresh_hash = hash_token(refresh_value)
 
+        cookie_opts = {
+            "httponly": True,
+            "secure": settings.COOKIE_SECURE,
+            "samesite": settings.COOKIE_SAMESITE,
+            "domain": settings.COOKIE_DOMAIN
+        }
+
         response.set_cookie(
             key="access_token",
             value=access_token,
-            httponly=True,
-            secure=True,
-            samesite="none",
+            **cookie_opts,
             max_age=ACCESS_TOKEN_EXPIRE_MINUTES * 60,
         )
 
@@ -35,9 +41,7 @@ class LoginUser:
         response.set_cookie(
             key="refresh_token",
             value=refresh_value,
-            httponly=True,
-            secure=True,
-            samesite="none",
+            **cookie_opts,
             max_age=REFRESH_TOKEN_EXPIRE_DAYS * 24 * 60 * 60,
         )
 

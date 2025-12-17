@@ -6,6 +6,7 @@ from fastapi.staticfiles import StaticFiles
 from interfaces.routes.users.auth_interface import auth_router
 from interfaces.routes.users.users_interface import user_router
 from interfaces.routes.users.area_interface import area_router
+from interfaces.routes.users.role_interface import role_router
 from interfaces.routes.trainings.training_interface import training_router
 from interfaces.routes.trainings.assignment_interface import assignment_router
 from interfaces.routes.evaluations.questionnaire_interface import questionnaire_router
@@ -18,6 +19,7 @@ routes = [
     auth_router,
     user_router,
     area_router,
+    role_router,
     training_router,
     assignment_router,
     questionnaire_router,
@@ -34,7 +36,7 @@ app.mount("/media", StaticFiles(directory="media"), name="media")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=['https://hospitales-frontend.vercel.app'],
+    allow_origins=['http://localhost:3000'],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
